@@ -1,0 +1,49 @@
+;; gorilla-repl.fileformat = 1
+
+;; **
+;;; # TestMethod
+;;; 
+;;; Тестовый метод принятия решений
+;; **
+
+;; @@
+(ns test-method-ws
+  (:require [gorilla-plot.core :as plot]
+            [mdss.methods.test :as m]))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;; <=
+
+;; **
+;;; ## Инициализация метода
+;; **
+
+;; @@
+(def method (m/->TestMethod 3))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;test-method-ws/method</span>","value":"#'test-method-ws/method"}
+;; <=
+
+;; **
+;;; ## Решение
+;; **
+
+;; @@
+(.solve method 4)
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-long'>7</span>","value":"7"}
+;; <=
+
+;; **
+;;; ## Решение получено?
+;; **
+
+;; @@
+(.solved? method nil)
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-unkown'>true</span>","value":"true"}
+;; <=
