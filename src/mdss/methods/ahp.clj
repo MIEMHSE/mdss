@@ -68,15 +68,15 @@
         2 (let [
             alternative-ratio (:alternative-ratio input)
             alternative-keys (keys alternative-ratio)
-            criteria-ratio (:criteria-ratio input)
             criteria-prices-and-weights (:criteria-prices-and-weights input)
+            alternatives (:alternatives input)
             alternative-prices-and-weights (:alternative-prices-and-weights input)]
 
             (assoc input
               :step (inc step)
               :alternative-value
               (zipmap
-                alternative-keys
+                (map translate alternatives)
                 (map
                   #(reduce +
                     (map *
