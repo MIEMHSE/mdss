@@ -88,5 +88,5 @@ initial-map
 (.solved? method solved-map)
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-unkown'>true</span>","value":"true"}
+;;; {"type":"html","content":"<span class='clj-unkown'>false</span>","value":"false"}
 ;; <=
