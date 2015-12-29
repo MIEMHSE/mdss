@@ -9,7 +9,8 @@ Moscow Institute of Electronics and Mathematics (MIEM HSE).
 
 ## View worksheets
 
-AHPMethod: [Worksheet](http://viewer.gorilla-repl.org/view.html?source=github&user=MIEMHSE&repo=mdss&path=ws/ahp-method.cljw) and [Code](https://github.com/MIEMHSE/mdss/blob/master/src/mdss/methods/ahp.clj)
+* AHPMethod: [Worksheet](http://viewer.gorilla-repl.org/view.html?source=github&user=MIEMHSE&repo=mdss&path=ws/ahp-method.cljw) and [Code](https://github.com/MIEMHSE/mdss/blob/master/src/mdss/methods/ahp.clj)
+* MinDistanceMethod: [Worksheet](http://viewer.gorilla-repl.org/view.html?source=github&user=MIEMHSE&repo=mdss&path=ws/mindistance-method.cljw) and [Code](https://github.com/MIEMHSE/mdss/blob/master/src/mdss/methods/mindistance.clj) (partially implemented)
 
 ## Usage
 
