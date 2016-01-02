@@ -9,6 +9,44 @@
   [pm choices]
   (map #(.indexOf pm %) choices))
 
+(defn- alternatives-matrix
+  [pm]
+  (let [
+    pm-dim (count pm)
+    pm-range (range
+      (reduce min pm)
+      (inc (reduce max pm)))]
+    (matrix
+      (partition
+        pm-dim
+        (for [
+          x pm-range
+          y pm-range]
+          (compare
+            (.indexOf pm y)
+            (.indexOf pm x)))))))
+
+(defn- get-inner-permutations
+  [pm]
+  (let [
+    vecs (filter vector? pm)
+    vecs-counts (map count vecs)
+    vecs-positions (map #(.indexOf pm %) vecs)
+    vecs-perms (map permutations vecs)
+    vecs-produced (apply cartesian-product vecs-perms)]
+    (map
+      (fn [vec-produced]
+        (flatten
+          (map-indexed
+            (fn [current-index current-value]
+              (if (vector? current-value)
+                (nth
+                  vec-produced
+                  (.indexOf vecs-positions current-index))
+                current-value))
+            pm)))
+      vecs-produced)))
+
 (deftype MinDistanceMethod []
   c/PDecisionSystem
 
