@@ -1,5 +1,6 @@
 (ns mdss.methods.mindistance
   (:require [loom.graph :as g]
+            [clojure.string :as s]
             [mdss.core :as c])
 
   (:use [clojure.core.matrix]
@@ -8,6 +9,16 @@
 (defn- range-index
   [pm choices]
   (map #(.indexOf pm %) choices))
+
+(defn get-permutations-repr
+  [pm]
+  (reduce
+    #(if
+      (vector? %2)
+      (apply
+        conj %1
+        (map (fn [x] (s/join "~" %2)) %2))
+        (conj %1 %2)) [] pm))
 
 (defn- get-inner-permutations
   [pm]
@@ -52,7 +63,7 @@
   [pmx]
   (let [
     pms (get-inner-permutations pmx)
-    matrices (map alternatives-matrix-for-row pms)
+    matrices (map alternatives-matrix-for-row pms)]
     (emap
       #(/ % (count pms))
       (apply emap + matrices))))
