@@ -41,7 +41,7 @@
               pm)))
         vecs-produced))))
 
-(defn- permutation-range
+(defn permutation-range
   [pm-vec]
   (range
     (reduce min pm-vec)
@@ -110,11 +110,31 @@
                   pmx
                   matrices))
               ams
-              choices)]
+              choices)
+            distance-sums (transpose
+              (map
+                vec
+                (map-indexed
+                  (fn [expert-index expert]
+                    (map
+                      #(nth % 2)
+                      (nth distances expert-index)))
+                  distances)))
+            distance-sums-and-their-sum (map
+              #(join %1 %2 (apply + %2))
+              pmx
+              distance-sums)
+            only-sums (map last distance-sums-and-their-sum)
+            pm-index (.indexOf
+              only-sums
+              (reduce min only-sums))
+            minimal-pm (nth pmx pm-index)]
             (assoc input
               :pmx pmx
               :matrices matrices
               :distances distances
+              :distance-sums distance-sums-and-their-sum
+              :minimal-pm minimal-pm
               :step new-step)))))
 
   (solved? [this input] (>= (get input :step) 2))
