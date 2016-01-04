@@ -2,19 +2,15 @@
 
 ;; **
 ;;; # MinDistanceMethod
-;;; 
+;;;
 ;;; Метод минимального расстояния
 ;; **
 
 ;; @@
 (ns mindistance-method-ws
-  (:require [clojure.pprint :as pp]
-            [gorilla-plot.core :as plot]
-            [gorilla-repl.table :as t]
-            [loom.graph :as g]
-            [loom-gorilla.render :as l]
+  (:require [gorilla-repl.table :as t]
             [mdss.methods.mindistance :as md])
-  
+
   (:use [clojure.core.matrix]))
 
 (def method (md/->MinDistanceMethod))
@@ -36,7 +32,7 @@
    [1 3 2 4]
    [2 [1 3] 4]])
 
-(t/table-view 
+(t/table-view
   (map md/get-permutations-repr expert-choices))
 
 ;; @@
@@ -58,14 +54,14 @@ initial-map
 
 ;; **
 ;;; ## Решение
-;;; 
+;;;
 ;;; Матрицы альтернатив для каждого эксперта
 ;; **
 
 ;; @@
 (def solved-map (.solve method initial-map))
 
-(map t/table-view 
+(map t/table-view
      (:ams solved-map))
 ;; @@
 ;; =>
@@ -86,7 +82,7 @@ initial-map
     (t/table-view
       distance
       :columns ["Ранжировка эксперта" "Ранжировка" "Расстояние"]))
-  
+
   distances)
 
 
@@ -112,7 +108,7 @@ initial-map
 ;; <=
 
 ;; **
-;;; ## Искомая перестановка
+;;; ## Искомая ранжировка
 ;; **
 
 ;; @@
