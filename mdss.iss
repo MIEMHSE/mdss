@@ -19,8 +19,8 @@ Name: "{group}\Uninstall mDSS"; Filename: "{uninstallexe}"
 [Code]
 procedure DecodeVersion (verstr: String; var verint: array of Integer);
 var
-  i, p: Integer;
-  s: string;
+  i, p : Integer;
+  s : String;
 begin
   verint := [0, 0, 0, 0];
   i := 0;
@@ -43,35 +43,9 @@ begin
 
 end;
 
-function CompareVersion (ver1, ver2: String) : Integer;
+function InitializeSetup() : Boolean;
 var
-  verint1, verint2: array of Integer;
-  i: integer;
-begin
-  SetArrayLength (verint1, 4);
-  DecodeVersion (ver1, verint1);
-
-  SetArrayLength (verint2, 4);
-  DecodeVersion (ver2, verint2);
-
-  Result := 0; i := 0;
-  while ((Result = 0) and (i < 4)) do
-  begin
-    if verint1[i] > verint2[i] then
-      Result := 1
-    else
-      if verint1[i] < verint2[i] then
-        Result := -1
-      else
-        Result := 0;
-    i := i + 1;
-  end;
-
-end;
-
-function InitializeSetup(): Boolean;
-var
-  ErrorCode: Integer;
+  ErrorCode : Integer;
   JavaVer : String;
   Result1 : Boolean;
 begin
@@ -79,14 +53,11 @@ begin
     Result := false;
     if Length (JavaVer) > 0 then
     begin
-    	if CompareVersion (JavaVer, '1.6') >= 0 then
-    	begin
-    		Result := true;
-    	end;
+    	Result := true;
     end;
     if Result = false then
     begin
-    	Result1 := MsgBox('This tool requires Java Runtime Environment v1.6 or older to run. Please download and install JRE and run this setup again.' + #13 + #10 +
+    	Result1 := MsgBox('This tool requires Java Runtime Environment v1.6 or newer to run. Please download and install JRE and run this setup again.' + #13 + #10 +
         'Do you want to download it now?',
     	  mbConfirmation, MB_YESNO) = idYes;
     	if Result1 = true then
