@@ -25,7 +25,6 @@
         (System/getProperty "user.home"))
       ".mdss")]
     (.mkdir mdss-dir)
-    (.chdir mdss-dir)
     (g/run-gorilla-server arguments)
     (b/browse-url
       (str
