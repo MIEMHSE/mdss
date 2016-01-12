@@ -125,16 +125,16 @@
               pmx
               distance-sums)
             only-sums (map last distance-sums-and-their-sum)
-            pm-index (.indexOf
-              only-sums
-              (reduce min only-sums))
-            minimal-pm (nth pmx pm-index)]
+            pm-indexes (map first
+              (filter #(= (second %) (reduce min only-sums))
+              (map-indexed vector only-sums)))
+            minimal-pms (map #(nth pmx %) pm-indexes)]
             (assoc input
               :pmx pmx
               :matrices matrices
               :distances distances
               :distance-sums distance-sums-and-their-sum
-              :minimal-pm minimal-pm
+              :minimal-pms minimal-pms
               :step new-step)))))
 
   (solved? [this input] (>= (get input :step) 2))
