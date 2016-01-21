@@ -6,7 +6,7 @@
   (:use [clojure.core.matrix]
         [clojure.math.combinatorics]))
 
-(defn- range-index
+(defn range-index
   [pm choices]
   (map #(.indexOf pm %) choices))
 
@@ -20,7 +20,7 @@
         (map (fn [x] (s/join "~" %2)) %2))
         (conj %1 %2)) [] pm))
 
-(defn- get-inner-permutations
+(defn get-inner-permutations
   [pm]
   (let [
     vecs (filter vector? pm)
@@ -43,9 +43,11 @@
 
 (defn permutation-range
   [pm-vec]
-  (range
-    (reduce min pm-vec)
-    (inc (reduce max pm-vec))))
+  (if (-> pm-vec empty? not)
+    (range
+      (reduce min pm-vec)
+      (inc (reduce max pm-vec)))
+    '()))
 
 (defn- alternatives-matrix-for-row
   [pm]
@@ -72,7 +74,7 @@
       #(/ % (count pms))
       (apply emap + matrices))))
 
-(defn- matrices-distance
+(defn matrices-distance
   [mx1 mx2]
   (esum
     (emap
@@ -88,7 +90,9 @@
     (let [
       step (:step input)
       choices (:choices input)
-      choices-count (column-count choices)
+      choices-count (column-count
+        (apply concat
+          (map get-inner-permutations choices)))
       ams (get input :ams)
       new-step (inc step)]
 
